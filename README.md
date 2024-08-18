@@ -61,7 +61,7 @@ from hls_media.core.quality_settings import QualitySettings
 
 media = HlsMedia()
 
-media.setQuality(index=0, quality=QualitySettings(dimension=1080, bitrate=12000000, fps=60, time_per_segment=5))
+media.set_quality(index=0, quality=QualitySettings(dimension=1080, bitrate=12000000, fps=60, time_per_segment=5))
 
 media.render("video.mov", "video_folder")
 ```
@@ -72,7 +72,7 @@ from hls_media import HlsMedia
 
 media = HlsMedia()
 
-media.removeQuality(index=0)
+media.remove_quality(index=0)
 
 media.render("video.mov", "video_folder")
 ```
