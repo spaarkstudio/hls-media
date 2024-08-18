@@ -2,3 +2,4 @@ hls_media/__pycache__/*
 hls_media/core/__pycache__/*
 video.mp4
 .vscode/*
+video_folder

@@ -1,5 +1,6 @@
 from hls_media.core.hffmpeg import Ffmpeg
 from hls_media.core.quality_settings import QualitySettings
+from hls_media.core.master_hls import MasterHls
 import os
 
 class HlsMedia:
@@ -23,14 +24,22 @@ class HlsMedia:
         del self.__qualities__[index]
     
     def render(self, input_file: str, output_path: str):
-        for index in range(len(self.__qualities__)):
-            self.render_only(index, input_file, output_path)
+        hls_master = MasterHls()
+
+        for quality in self.__qualities__:
+            self.render_custom(quality, input_file, output_path)
+            hls_master.add_field(quality, os.path.join(output_path, str(quality.dimension), ".m3u8"), f"{quality.dimension}/.m3u8")
+        
+        hls_master.save(output_path)
     
     def render_only(self, index: int, input_file: str, output_path: str):
         if len(self.__qualities__) < index - 1:
             raise IndexError("Selected quality index goes out of qualities length preset.")
 
-        absolute_path = os.path.join(output_path, str(self.__qualities__[index].dimension))
+        self.render_custom(self.__qualities__[index], input_file, output_path)
+    
+    def render_custom(self, quality: QualitySettings, input_file: str, output_path: str):
+        absolute_path = os.path.join(output_path, str(quality.dimension))
         try:
             os.makedirs(absolute_path)
         except:
@@ -38,4 +47,4 @@ class HlsMedia:
 
         output_file = os.path.join(absolute_path, ".m3u8")
 
-        Ffmpeg.render(self.__qualities__[index], input_file, output_file)
+        Ffmpeg.render(quality, input_file, output_file)
