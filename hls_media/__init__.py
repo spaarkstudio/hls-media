@@ -4,7 +4,7 @@ import os
 
 class HlsMedia:
     def __init__(self):
-        self.qualities = [
+        self.__qualities__ = [
             QualitySettings(dimension=144, bitrate=500000, fps=30, time_per_segment=5),
             QualitySettings(dimension=240, bitrate=800000, fps=30, time_per_segment=5),
             QualitySettings(dimension=360, bitrate=1250000, fps=30, time_per_segment=5),
@@ -13,24 +13,24 @@ class HlsMedia:
             QualitySettings(dimension=1080, bitrate=12000000, fps=60, time_per_segment=5),
         ]
     
-    def setQualitiesSettings(self, qualities: list[QualitySettings]):
-        self.qualities = qualities
+    def apply_preset(self, qualities: list[QualitySettings]):
+        self.__qualities__ = qualities
     
-    def setQualitySettings(self, quality: QualitySettings, index: int):
-        self.qualities[index] = quality
+    def set_quality(self, index: int, quality: QualitySettings):
+        self.__qualities__[index] = quality
     
-    def removeQualitySettings(self, index: int):
-        del self.qualities[index]
+    def remove_quality(self, index: int):
+        del self.__qualities__[index]
     
     def render(self, input_file: str, output_path: str):
-        for index in range(len(self.qualities)):
+        for index in range(len(self.__qualities__)):
             self.render_only(index, input_file, output_path)
     
     def render_only(self, index: int, input_file: str, output_path: str):
-        if len(self.qualities) < index - 1:
+        if len(self.__qualities__) < index - 1:
             raise IndexError("Selected quality index goes out of qualities length.")
 
-        absolute_path = os.path.join(output_path, str(self.qualities[index].dimension))
+        absolute_path = os.path.join(output_path, str(self.__qualities__[index].dimension))
         try:
             os.makedirs(absolute_path)
         except:
@@ -38,4 +38,4 @@ class HlsMedia:
 
         output_file = os.path.join(absolute_path, ".m3u8")
 
-        Ffmpeg.render(self.qualities[index], input_file, output_file)
+        Ffmpeg.render(self.__qualities__[index], input_file, output_file)

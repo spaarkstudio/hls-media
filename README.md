@@ -27,3 +27,42 @@ Default qualities preset:
   QualitySettings(dimension=1080, bitrate=12000000, fps=60, time_per_segment=5),
 ]
 ```
+
+To replace with a whole new set of preset, use `.apply_preset()`:
+```python
+from hls_media import HlsMedia
+from hls_media.core.quality_settings import QualitySettings
+
+media = HlsMedia()
+
+media.apply_preset([
+  QualitySettings(dimension=720, bitrate=2000000, fps=30, time_per_segment=5),
+  QualitySettings(dimension=1080, bitrate=5000000, fps=30, time_per_segment=5),
+])
+
+media.render("video.mov", "video_folder")
+```
+
+To change one quality settings in preset, use `.setQuality()`:
+```python
+from hls_media import HlsMedia
+from hls_media.core.quality_settings import QualitySettings
+
+media = HlsMedia()
+
+media.setQuality(index=0, quality=QualitySettings(dimension=1080, bitrate=12000000, fps=60, time_per_segment=5))
+
+media.render("video.mov", "video_folder")
+```
+
+To delete one quality settings in preset, use `.removeQuality()`:
+```python
+from hls_media import HlsMedia
+from hls_media.core.quality_settings import QualitySettings
+
+media = HlsMedia()
+
+media.removeQuality(index=0)
+
+media.render("video.mov", "video_folder")
+```
