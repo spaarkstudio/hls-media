@@ -58,7 +58,6 @@ media.render("video.mov", "video_folder")
 To delete one quality settings in preset, use `.removeQuality()`:
 ```python
 from hls_media import HlsMedia
-from hls_media.core.quality_settings import QualitySettings
 
 media = HlsMedia()
 
