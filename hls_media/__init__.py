@@ -28,7 +28,7 @@ class HlsMedia:
     
     def render_only(self, index: int, input_file: str, output_path: str):
         if len(self.__qualities__) < index - 1:
-            raise IndexError("Selected quality index goes out of qualities length.")
+            raise IndexError("Selected quality index goes out of qualities length preset.")
 
         absolute_path = os.path.join(output_path, str(self.__qualities__[index].dimension))
         try:

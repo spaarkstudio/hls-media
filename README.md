@@ -28,6 +28,17 @@ Default qualities preset:
 ]
 ```
 
+You can always render only one quality set using `.render_only()`:
+```python
+from hls_media import HlsMedia
+
+media = HlsMedia()
+
+# There's already a default qualities preset.
+# You can go ahead and render.
+media.render_only("video.mov", "video_folder")
+```
+
 To replace with a whole new set of preset, use `.apply_preset()`:
 ```python
 from hls_media import HlsMedia
