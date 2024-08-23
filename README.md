@@ -54,7 +54,7 @@ media.apply_preset([
 media.render("video.mov", "video_folder")
 ```
 
-To change one quality settings in preset, use `.setQuality()`:
+To change one quality settings in preset, use `.set_quality()`:
 ```python
 from hls_media import HlsMedia
 from hls_media.core.quality_settings import QualitySettings
@@ -66,7 +66,7 @@ media.set_quality(index=0, quality=QualitySettings(dimension=1080, bitrate=12000
 media.render("video.mov", "video_folder")
 ```
 
-To delete one quality settings in preset, use `.removeQuality()`:
+To delete one quality settings in preset, use `.remove_quality()`:
 ```python
 from hls_media import HlsMedia
 
